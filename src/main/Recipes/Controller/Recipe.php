@@ -88,7 +88,7 @@ class Recipe
      * Show recipe overview
      *
      * @param RMF\Request $request
-     * @return Struct\Response
+     * @return Struct\Overview
      */
     public function showOverview( RMF\Request $request )
     {
@@ -102,7 +102,7 @@ class Recipe
      * Show my recipes
      *
      * @param RMF\Request $request
-     * @return Struct\Response
+     * @return Struct\Mine
      */
     public function mine( RMF\Request $request )
     {
@@ -139,7 +139,7 @@ class Recipe
      * Provides an overview on the used tags
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Tags
      */
     public function tags( RMF\Request $request )
     {
@@ -164,7 +164,7 @@ class Recipe
      * Provides an alphabetical index of all recipes
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Recipe
      */
     public function all( RMF\Request $request )
     {
@@ -188,7 +188,7 @@ class Recipe
      * Lists all recipes, which belong to a tag
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Tag
      */
     public function tag( RMF\Request $request )
     {
@@ -205,7 +205,7 @@ class Recipe
      * Lists all recipes, which belong to a ingredient
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Ingredient
      */
     public function ingredient( RMF\Request $request )
     {
@@ -223,7 +223,7 @@ class Recipe
      * in the subaction
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Listing
      */
     public function units( RMF\Request $request )
     {
@@ -241,7 +241,7 @@ class Recipe
      * in the subaction
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Listing
      */
     public function ingredients( RMF\Request $request )
     {
@@ -258,7 +258,7 @@ class Recipe
      * Allows registered users to view a recipe
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Recipe
      */
     public function view( RMF\Request $request )
     {
@@ -273,7 +273,7 @@ class Recipe
      * Provide a list of available export formats for the recipe
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Export
      */
     public function listExports( RMF\Request $request )
     {
@@ -304,7 +304,7 @@ class Recipe
      * of portions.
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\File
      */
     public function export( RMF\Request $request )
     {
@@ -354,7 +354,7 @@ class Recipe
      * Allows registered users to remove a recipe
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Message
      */
     public function delete( RMF\Request $request )
     {
@@ -370,7 +370,7 @@ class Recipe
      * Remove an attachment
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Recipe
      */
     public function detach( RMF\Request $request )
     {
@@ -392,7 +392,7 @@ class Recipe
      * Add an attachment
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Recipe
      */
     public function attach( RMF\Request $request )
     {
@@ -421,7 +421,7 @@ class Recipe
      * Get attachment
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\File
      */
     public function attachment( RMF\Request $request )
     {
@@ -439,7 +439,7 @@ class Recipe
      * Get attachment thumbnail
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\File
      */
     public function thumbnail( RMF\Request $request )
     {
@@ -473,7 +473,7 @@ class Recipe
      * Allows registered users to edit a recipe
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Edit
      */
     public function edit( RMF\Request $request )
     {
@@ -533,7 +533,7 @@ class Recipe
      * used by the model
      *
      * @param array $ingredients
-     * @return void
+     * @return array()
      */
     protected function convertIngredientList( array $ingredients )
     {
@@ -574,7 +574,7 @@ class Recipe
      * Get search result
      *
      * @param RMF\Request $request
-     * @return recipeViewModel
+     * @return Struct\Search
      */
     public function search( RMF\Request $request )
     {
