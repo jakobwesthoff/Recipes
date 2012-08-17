@@ -63,6 +63,32 @@ class User implements Gateway\User
     }
 
     /**
+     * Retrieve the CouchDB Document assigned to a specific user id
+     *
+     * @param $id
+     * @return User\Document
+     * @throws recipeGatewayNotFoundException if the requested Document could not be found
+     */
+    protected function fetchUserDocument( $id )
+    {
+        try
+        {
+            $doc = new User\Document();
+            $doc->fetchById( $id );
+        }
+        catch ( phpillowResponseNotFoundErrorException $e )
+        {
+            throw new recipeGatewayNotFoundException(
+                "The user '%user' could not be found.",
+                array(
+                    'user' => $id,
+                )
+            );
+        }
+
+        return $doc;
+    }
+    /**
      * Get array of users
      *
      * Return an array with the IDs of all available users in the database.
@@ -148,20 +174,7 @@ class User implements Gateway\User
      */
     public function getUserData( $user )
     {
-        try
-        {
-            $doc = new User\Document();
-            $doc->fetchById( $user );
-        }
-        catch ( phpillowResponseNotFoundErrorException $e )
-        {
-            throw new recipeGatewayNotFoundException(
-                "The user '%user' could not be found.",
-                array(
-                    'user' => $user,
-                )
-            );
-        }
+        $doc = $this->fetchUserDocument( $user );
 
         return array(
             'login'           => $doc->login,
@@ -189,7 +202,7 @@ class User implements Gateway\User
     {
         try
         {
-            $user = phpillowManager::createDocument( 'user' );
+            $user = new User\Document();
             $user->login = $name;
             $user->save();
         }
@@ -214,19 +227,7 @@ class User implements Gateway\User
      */
     public function updateUserData( $user, $data )
     {
-        try
-        {
-            $doc = phpillowManager::fetchDocument( 'user', $user );
-        }
-        catch ( phpillowResponseNotFoundErrorException $e )
-        {
-            throw new recipeGatewayNotFoundException(
-                "The user '%user' could not be found.",
-                array(
-                    'user' => $user,
-                )
-            );
-        }
+        $doc = $this->fetchUserDocument( $user );
 
         // Set data, which will be validated internally, and store.
         foreach ( $data as $key => $value )
