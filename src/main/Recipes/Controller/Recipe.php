@@ -488,6 +488,7 @@ class Recipe
             $result->ingredients = $recipe->ingredients ? json_encode( $recipe->ingredients ) : 'null';
         }
 
+        // The edit form was requested to be viewed not submitted yet
         if ( !isset( $request->body['store'] ) )
         {
             return $result;
@@ -505,16 +506,24 @@ class Recipe
             $recipe->tags         = preg_split( '(\s*,\s*)', trim( $request->body['tags'] ) );
             $recipe->user         = $request->session['user'];
 
-            // Force creation, if it is a new recipe
-            if ( $id === null )
+            // At least a title needs to exist. In order for a recipe to be stored
+            if ( trim( $request->body['title'] ) === "" )
             {
-                $recipe->create();
-                $id = $recipe->_id;
+                $result->errors[] = "You can't store a recipe with an empty title.";
             }
+            else
+            {
+                // Force creation, if it is a new recipe
+                if ( $id === null )
+                {
+                    $recipe->create();
+                    $id = $recipe->_id;
+                }
 
-            $this->search->index( $recipe );
-            $recipe->storeChanges();
-            $result->success = 'Your recipe has been successfully stored.';
+                $this->search->index( $recipe );
+                $recipe->storeChanges();
+                $result->success = 'Your recipe has been successfully stored.';
+            }
         }
         catch ( \Exception $e )
         {
