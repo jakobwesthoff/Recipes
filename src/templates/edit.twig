@@ -3,9 +3,9 @@
 
 {% block commands %}
 <ul class="commands">
-{% if recipe.id %}
+{% if recipe._id %}
     <li>
-        <a href="/recipe/recipe/{{recipe.id}}">
+        <a href="/recipe/recipe/{{recipe._id}}">
             <i class="icon-ok"></i> Ansicht
         </a>
     </li>
@@ -24,7 +24,7 @@
     </div>
 {% endif %}
 
-<form class="protect" method="post" action="/recipe/edit{% if result.recipe %}/{{result.recipe.id}}{% endif %}"
+<form class="protect" method="post" action="/recipe/edit{% if recipe._id != null %}/{{recipe._id}}{% endif %}"
       onsubmit="return validateForm( this );">
 <fieldset>
 	<legend>Edit recipe</legend>

@@ -306,6 +306,12 @@ abstract class Model extends Struct
      */
     public function __isset( $property )
     {
+        // Special handling of _id property
+        if ( $property === '_id' && $this->id !== null )
+        {
+            return true;
+        }
+
         // Check if the property exists at all - use array_key_exists, to let
         // this check pass, even if the property is set to null.
         return array_key_exists( $property, $this->properties );

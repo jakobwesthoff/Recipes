@@ -303,7 +303,6 @@ class Recipe implements Gateway\Recipe
      *
      * Get data for the given recipe id. The data should be returned as an array,
      * and should contain the following keys:
-     *  - id
      *  - title
      *  - amount
      *  - description
@@ -336,7 +335,6 @@ class Recipe implements Gateway\Recipe
         }
 
         return array(
-            'id'           => $doc->_id,
             'title'        => $doc->title,
             'amount'       => $doc->amount,
             'description'  => $doc->description,

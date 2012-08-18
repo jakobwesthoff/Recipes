@@ -43,7 +43,6 @@ class Recipe extends Model
      * @var array
      */
     protected $properties = array(
-        'id'           => null,
         'title'        => null,
         'amount'       => null,
         'description'  => null,
@@ -561,12 +560,10 @@ class Recipe extends Model
                 'tags'         => true,
                 'type'         => true,
                 '_rev'         => true,
-                '_id'          => true,
                 'attachments'  => true,
                 '_attachments' => true,
             )
         );
-        $properties['id'] = $this->id;
 
         return $properties;
     }
@@ -578,7 +575,7 @@ class Recipe extends Model
      */
     public function setState( array $properties )
     {
-        $this->properties['id'] = $this->id = $properties['id'];
+        $this->id = $properties['_id'];
     }
 }
 

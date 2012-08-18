@@ -4,7 +4,7 @@
 {% block commands %}
 <ul class="commands">
     <li>
-        <a href="/recipe/edit/{{recipe.id}}">
+        <a href="/recipe/edit/{{recipe._id}}">
             <i class="icon-edit"></i> Bearbeiten
         </a>
     </li>
@@ -19,29 +19,29 @@
         </a>
     </li>
     <li>
-        <a onclick="return confirm( 'Do you really want to delete this recipe?' );" href="/recipe/delete/{{recipe.id}}">
+        <a onclick="return confirm( 'Do you really want to delete this recipe?' );" href="/recipe/delete/{{recipe._id}}">
             <i class="icon-trash"></i> Löschen
         </a>
     </li>
     <li>
-        <a href="/recipe/listExports/{{recipe.id}}">
+        <a href="/recipe/listExports/{{recipe._id}}">
             <i class="icon-file"></i> Exportieren
         </a>
     </li>
 </ul>
-{%endblock %}
+{% endblock %}
 
 {% block content %}
-<h2>{{recipe.title}} <a class="edit" href="/recipe/edit/{{recipe.id}}">[Bearbeiten]</a></h2>
+<h2>{{recipe.title}} <a class="edit" href="/recipe/edit/{{recipe._id}}">[Bearbeiten]</a></h2>
 
 {% if recipe.attachments|length() %}
-<form action="/recipe/detach/{{recipe.id}}" method="POST">
+<form action="/recipe/detach/{{recipe._id}}" method="POST">
 <div id="recipeCarousel" class="carousel slide">
     <div class="carousel-inner">
 {% for image, data in recipe.attachments %}
         <div class="item {% if loop.index0 == 0 %}active{% endif %}">
             <button name="detach" value="{{image}}" class="btn btn-mini"><i class="icon-trash"></i></button>
-            <a href="/images/recipes/full/{{recipe.id}}/{{image}}"><img src="/images/recipes/{{recipe.id}}/{{image}}" /></a>
+            <a href="/images/recipes/full/{{recipe._id}}/{{image}}"><img src="/images/recipes/{{recipe._id}}/{{image}}" /></a>
         </div>
 {% endfor %}
     </div>
@@ -90,7 +90,7 @@
 {% endif %}
 
 <div class="modal" id="upload" style="display: none;">
-    <form action="/recipe/attach/{{recipe.id}}" method="POST" enctype="multipart/form-data">
+    <form action="/recipe/attach/{{recipe._id}}" method="POST" enctype="multipart/form-data">
     <div class="modal-header">
         <button class="close" data-dismiss="modal">×</button>
         <h3>Bild hochladen</h3>
